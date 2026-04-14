@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage       from './pages/LoginPage';
 import OtpPage         from './pages/OtpPage';
 import SelectTrustPage from './pages/SelectTrustPage';
+import CreateTrustPage from './pages/CreateTrustPage';
 import Dashboard       from './pages/Dashboard';
 import TrusteesPage    from './pages/TrusteesPage';
 import TrustDetails    from './pages/TrustDetails';
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login"        element={<LoginPage />} />
         <Route path="/verify-otp"   element={<OtpPage />} />
         <Route path="/select-trust" element={<SelectTrustPage />} />
+        <Route path="/create-trust" element={<CreateTrustPage />} />
         <Route path="/dashboard"    element={<Dashboard />} />
         <Route path="/trust-details" element={<TrustDetails />} />
         <Route path="/trustees"     element={<TrusteesPage />} />

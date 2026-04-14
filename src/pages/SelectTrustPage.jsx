@@ -213,7 +213,10 @@ export default function SelectTrustPage() {
               Contact your administrator or create a new app below.
             </p>
 
-            <div className="st-create-card">
+            <button 
+              className="st-create-card"
+              onClick={() => navigate('/create-trust', { state: { superuserId, userName } })}
+            >
               <div className="st-create-icon">🚀</div>
               <div className="st-create-info">
                 <p className="st-create-title">Create Your Own App</p>
@@ -222,15 +225,6 @@ export default function SelectTrustPage() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke="#6366F1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </div>
-
-            <button className="st-btn" onClick={() => navigate('/dashboard', { state: { superuserId, userName, trust: null } })}>
-              <span className="st-btn-inner">
-                Create your first customizable app
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
             </button>
 
             <button className="st-back-btn" onClick={() => navigate('/login')}>← Sign out</button>
@@ -368,6 +362,17 @@ export default function SelectTrustPage() {
               ))
             )}
           </div>
+
+          <button 
+            className="st-create-new-app-btn" 
+            onClick={() => navigate('/create-trust', { state: { superuserId, userName } })}
+            title="Create a new trust app"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Create New App
+          </button>
 
           <button className="st-back-btn" onClick={() => navigate('/login')}>← Sign out</button>
         </div>
