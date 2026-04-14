@@ -1,0 +1,72 @@
+import { supabase } from '../lib/supabase';
+
+const FOLDERS_TABLE = 'gallery_folders';
+const PHOTOS_TABLE = 'gallery_photos';
+
+function normalizeFolderRow(row = {}, index = 0) {
+  const id = row.id || `${index}`;
+  const name = row.name || 'Untitled';
+  return { id, name, description: row.description || null, raw: row };
+}
+
+function normalizePhotoRow(row = {}, index = 0) {
+  const id = row.id || `${index}`;
+  const url = row.public_url || row.storage_path || '';
+  const folderId = row.folder_id || null;
+  const createdAt = row.created_at || null;
+  return { id, url, folderId, createdAt, raw: row };
+}
+
+export async function fetchGalleryFolders(trustId) {
+  if (!trustId) return { data: [], error: null };
+
+  const { data, error } = await supabase
+    .from(FOLDERS_TABLE)
+    .select('*')
+    .eq('trust_id', trustId)
+    .order('created_at', { ascending: true });
+
+  return { data: (data || []).map(normalizeFolderRow), error };
+}
+
+export async function fetchGalleryPhotos(folderIds = []) {
+  if (!folderIds.length) return { data: [], error: null };
+
+  const { data, error } = await supabase
+    .from(PHOTOS_TABLE)
+    .select('*')
+    .in('folder_id', folderIds)
+    .order('created_at', { ascending: false });
+
+  return { data: (data || []).map(normalizePhotoRow), error };
+}
+
+export async function createGalleryFolder(name, trustId) {
+  if (!trustId) return { data: null, error: { message: 'No trust id provided.' } };
+
+  const payload = { trust_id: trustId, name };
+  const { data, error } = await supabase
+    .from(FOLDERS_TABLE)
+    .insert([payload])
+    .select('*')
+    .single();
+
+  return { data: data ? normalizeFolderRow(data, 0) : null, error };
+}
+
+export async function createGalleryPhoto(payload) {
+  const row = {
+    storage_path: payload.imageUrl,
+    public_url: payload.imageUrl,
+    folder_id: payload.folderId || null,
+    uploaded_by: payload.uploadedBy || null,
+  };
+
+  const { data, error } = await supabase
+    .from(PHOTOS_TABLE)
+    .insert([row])
+    .select('*')
+    .single();
+
+  return { data: data ? normalizePhotoRow(data, 0) : null, error };
+}

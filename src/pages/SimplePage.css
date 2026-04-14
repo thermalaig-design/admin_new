@@ -1,0 +1,34 @@
+.simple-root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: #F5F7FF;
+}
+
+.simple-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.simple-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 28px;
+  width: 100%;
+}
+
+.simple-card {
+  background: white;
+  border: 1.5px solid rgba(99, 102, 241, 0.08);
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06);
+  color: #6B7280;
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .simple-root {
+    grid-template-columns: 1fr;
+  }
+}

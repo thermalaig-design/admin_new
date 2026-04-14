@@ -1,0 +1,34 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage       from './pages/LoginPage';
+import OtpPage         from './pages/OtpPage';
+import SelectTrustPage from './pages/SelectTrustPage';
+import Dashboard       from './pages/Dashboard';
+import TrusteesPage    from './pages/TrusteesPage';
+import TrustDetails    from './pages/TrustDetails';
+import SponsorsPage    from './pages/SponsorsPage';
+import GalleryPage     from './pages/GalleryPage';
+import MarqueePage     from './pages/MarqueePage';
+import ThemePage       from './pages/ThemePage';
+import './index.css';
+
+function App() {
+  return (
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <Routes>
+        <Route path="/"             element={<Navigate to="/login" replace />} />
+        <Route path="/login"        element={<LoginPage />} />
+        <Route path="/verify-otp"   element={<OtpPage />} />
+        <Route path="/select-trust" element={<SelectTrustPage />} />
+        <Route path="/dashboard"    element={<Dashboard />} />
+        <Route path="/trust-details" element={<TrustDetails />} />
+        <Route path="/trustees"     element={<TrusteesPage />} />
+        <Route path="/sponsor"      element={<SponsorsPage />} />
+        <Route path="/gallery"      element={<GalleryPage />} />
+        <Route path="/marquee"      element={<MarqueePage />} />
+        <Route path="/theme"        element={<ThemePage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
